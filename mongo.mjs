@@ -1,10 +1,11 @@
 //needs mongodb package
 
-const { MongoClient } = require("mongodb");
+// const { MongoClient } = require("mongodb");
+import { MongoClient } from "mongodb";
 
 
 const url = "mongodb+srv://TestTest:TestTest@goldtrade.skpkklp.mongodb.net/";
-var client = new MongoClient(url);
+var client = new MongoClient(url );
 const dbName = "gold";
 const collectionName = "start"
 let db, collection, expenses
@@ -26,7 +27,7 @@ async function getDataFromMongo(){
         let query = {name: "Amy"}
         let results;
         // let results = await collection.find({}).limit(2).toArray();         
-        results = await collection.find(query, {projection: {name: 1}}).sort({_id:-1}).limit(20).toArray(); //last 2 recods because _id:-1 is reverse
+        results = await collection.find(query, {projection: {name: 1}}).sort({_id:-1}).limit(2).toArray(); //last 2 recods because _id:-1 is reverse
         console.log(results);
         
         // results = await collection.find({}).limit(2).sort({$natural:-1}).toArray(); //last 2 recods
@@ -93,23 +94,40 @@ async function insertManyIntoMongo(params) {
 }
 async function deleteFromMongo(params) {
     try {
+        console.log("trying to delete...");
         await client.connect();
         const db = client.db(dbName);
         const collection = db.collection(collectionName);        
 
-        const first = await collection.findOne();
-        console.log(first);
-        const removeIdsArray =[]
-        await collection.deleteOne({title: "test1"});
+        // const first = await collection.findOne();
+        // console.log(first);
 
-        // const removeIdsArray = await collection.find({}, {_id : 1})
-        // .limit(10)
-        // .sort({timestamp:-1})
-        // .toArray()
-        // .map(function(doc) { return doc._id; });  // Pull out just the _ids
+        let removeIdsArray =[]
+        let stat;
+        // stat = await collection.deleteOne({title: "test1"});
+        // console.log("deleted one docs: " + stat.deletedCount);
+
+        // collection.find({}).limit(15).forEach(doc => 
+        //     { 
+        //       collection.remove({_id:doc._id})
+        //     }
+        //    )
+
+
+        // stat = await collection.deleteMany({_id: { $in:(await collection.find({}).sort({ _id: -1 }).limit(4).toArray()).map(doc => doc._id) } })
+        // console.log("deleted many docs: " + stat.deletedCount);
+
+        
+        // const lastDocs = await collection.find().sort({ _id: -1 }).limit(3).toArray(); // Find the last three documents
+        // const deleteResult = await collection.deleteMany({ _id: { $in: lastDocs.map(doc => doc._id) } });
+        // console.log(`${deleteResult.deletedCount} documents deleted.`);
+
+        // Pull out just the _ids
+        removeIdsArray = (await collection.find({}).sort({ _id: -1 }).limit(4).toArray()).map(doc => doc._id);
+        stat = await collection.deleteMany({_id: {$in: removeIdsArray}});
+        console.log( removeIdsArray);
         
         // removeIdsArray.push("6539b3f44a3597a63b433140")
-        // console.log(removeIdsArray);
         // console.log("deleteFromMongo");
 
         // collection.remove({_id: {$in: removeIdsArray}})
@@ -117,6 +135,7 @@ async function deleteFromMongo(params) {
         //     (result === 1) ? console.log('Deleted') :console.log('Deleted '+err);
         // });
         // console.log(msg);
+        // getDataFromMongo()
 
     } catch (error) {
         
@@ -124,9 +143,11 @@ async function deleteFromMongo(params) {
         await client.close();
     }
 }
+
+
 // insertManyIntoMongo()
 // insertIntoMongo()
 
-getDataFromMongo()
-// deleteFromMongo()
 // getDataFromMongo()
+deleteFromMongo()
+getDataFromMongo()
