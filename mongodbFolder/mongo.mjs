@@ -10,12 +10,12 @@ const dbName = "gold";
 const collectionName = "start"
 let db, collection, expenses
 
-async function getDataFromMongo(){
+async function getDataFromMongo(dbName2=dbName, collectionName2=collectionName){
     try {                
         await client.connect();
 
-        db = client.db(dbName)
-        collection = db.collection(collectionName);
+        db = client.db(dbName2)
+        collection = db.collection(collectionName2);
 
         //Find the first document in the collection
         // const first = await collection.findOne();
@@ -26,19 +26,18 @@ async function getDataFromMongo(){
         
         let query = {name: "Amy"}
         let results;
-        // let results = await collection.find({}).limit(2).toArray();         
-        results = await collection.find(query, {projection: {name: 1}}).sort({_id:-1}).limit(2).toArray(); //last 2 recods because _id:-1 is reverse
+
+        results = await collection.find({}).limit(5).toArray();         
+        // results = await collection.find(query, {projection: {name: 1}}).sort({_id:-1}).limit(2).toArray(); //last 2 recods because _id:-1 is reverse
+        // results = await collection.find(query, {projection: {name: 1}}).sort({_id:-1}).limit(2).toArray(); //last 2 recods because _id:-1 is reverse
         console.log(results);
         
         // results = await collection.find({}).limit(2).sort({$natural:-1}).toArray(); //last 2 recods
         // console.log(results);
-     
         
     } catch (error) {            
-        console.log(error);
-    
-    }finally {
-    // Close the database connection when finished or an error occurs
+        console.log(error);    
+    }finally {    
     	await client.close();
     }    
 }
@@ -143,18 +142,45 @@ async function deleteFromMongo(params) {
         await client.close();
     }
 }
-async function listDatabases(){
-        
-    let databasesList = await client.db().admin().listDatabases();
-    
+async function listDatabases(){        
+    let databasesList = await client.db().admin().listDatabases();    
     console.log("Databases:");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+    // client.close()
 };
+
+async function test3Awaits(dbName2=dbName, collectionName2=collectionName){
+    try {                
+        await client.connect();
+
+        db = client.db(dbName2)
+        collection = db.collection(collectionName2);
+        
+        const allItems = await collection.find({}).toArray();
+        console.log(allItems);
+        const namesBeginningWithS = await collection.find({ name: /^S/ }).toArray();
+        const fiftyFiveYearOlds = await collection.find({ age: 55 }).toArray();
+
+        // let [allItems, namesBeginningWithS, fiftyFiveYearOlds] = await Promise.all([
+        //     collection.find({}).toArray(),
+        //     collection.find({ name: /^S/ }).toArray(),
+        //     collection.find({ age: 55 }).toArray()
+        // ]);
+        
+    } catch (error) {            
+        console.log(error);    
+    }finally {    
+    	await client.close();
+    }    
+    
+}
+
 
 // insertManyIntoMongo()
 // insertIntoMongo()
 
 // getDataFromMongo()
 // deleteFromMongo()
-// getDataFromMongo()
-listDatabases(client);
+// listDatabases(client);
+// getDataFromMongo("sample_airbnb","listingsAndReviews")
+test3Awaits()
