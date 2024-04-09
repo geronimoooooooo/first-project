@@ -143,11 +143,18 @@ async function deleteFromMongo(params) {
         await client.close();
     }
 }
-
+async function listDatabases(){
+        
+    let databasesList = await client.db().admin().listDatabases();
+    
+    console.log("Databases:");
+    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+};
 
 // insertManyIntoMongo()
 // insertIntoMongo()
 
 // getDataFromMongo()
-deleteFromMongo()
-getDataFromMongo()
+// deleteFromMongo()
+// getDataFromMongo()
+listDatabases(client);

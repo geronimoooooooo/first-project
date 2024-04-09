@@ -1,0 +1,10 @@
+{
+    "_id": "10057447",
+    "listing_url": "https://www.airbnb.com/rooms/10057447",
+    "name": "Modern Spacious 1 Bedroom Loft",
+    "summary": "Prime location, amazing lighting and no annoying neighbours.  Good place to rent if you want a relaxing time in Montreal.",
+    "property_type": "Apartment",
+    "bedrooms": {"$numberInt":"1"},
+    "bathrooms": {"$numberDecimal":"1.0"},
+    "amenities": ["Internet","Wifi","Kitchen","Heating","Family/kid friendly","Washer","Dryer","Smoke detector","First aid kit","Safety card","Fire extinguisher","Essentials","Shampoo","24-hour check-in","Hangers","Iron","Laptop friendly workspace"],
+ }
