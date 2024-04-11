@@ -176,6 +176,51 @@ async function test3Awaits(dbName2=dbName, collectionName2=collectionName){
 }
 
 
+
+
+
+async function getLastDocument(collectionName) {
+  try {
+    const client = new MongoClient(url);
+    await client.connect();
+
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    const query = {};
+    const options = {
+      sort: { _id: -1 }, // Sort by _id in descending order
+      limit: 1 // Limit to 1 result
+    };
+
+    const result = await collection.find(query, options).toArray();
+
+    await client.close();
+
+    if (result.length === 0) {
+      return null;
+    }
+
+    return result[0];
+  } catch (error) {
+    console.error('Error getting last document:', error);
+    throw error;
+  }
+}
+
+getLastDocument(collectionName)
+  .then(document => {
+    if (document) {
+      console.log('Last document:', document);
+    } else {
+      console.log('No documents found');
+    }
+  })
+  .catch(error => {
+    console.error('Error getting last document:', error);
+  });
+
+
 // insertManyIntoMongo()
 // insertIntoMongo()
 
@@ -183,4 +228,4 @@ async function test3Awaits(dbName2=dbName, collectionName2=collectionName){
 // deleteFromMongo()
 // listDatabases(client);
 // getDataFromMongo("sample_airbnb","listingsAndReviews")
-test3Awaits()
+// test3Awaits()
