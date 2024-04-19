@@ -1,4 +1,5 @@
 require('dotenv').config()
 
 console.log("hello world")
-console.log(process.env.NAME)
+let name2 = process.env.NAME || "bro";
+console.log(name2)
