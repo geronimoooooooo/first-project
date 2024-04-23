@@ -20,20 +20,19 @@ const app = express()
     cert: fs.readFileSync('sslcert/certificate.crt')
   };
 */
+//#endregion
+
 const credentials = {
     pfx: fs.readFileSync('sslcert/STAR_researchstudio_at.pfx')
   };
   
 var httpsServer = https.createServer(credentials, app);
-  //#endregion
  
   // httpServer.listen(80, () => {
   //     console.log('HTTP Server running on port 80');
   // });
   
-  // httpsServer.listen(443, () => {
-  //     console.log('HTTPS Server running on port 443');
-  // });
+
 const port = process.env.PORTHTTPS || 443
   
 httpsServer.listen(port, (err) => {

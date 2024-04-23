@@ -8,12 +8,6 @@ import { fileURLToPath } from "url";
 // import { offers, routeGetOfferList, adder } from "./importer/LibRequireHelper.js";
 import * as dotenv from "dotenv";
 import fs from "fs"
-// let https;
-try {
-  https = await import('node:https');
-} catch (err) {
-  console.error('https support is disabled!');
-} 
 
 const __filename = fileURLToPath(import.meta.url);
 
