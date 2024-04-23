@@ -24,14 +24,23 @@ const credentials = {
     pfx: fs.readFileSync('sslcert/STAR_researchstudio_at.pfx')
   };
   
-  var httpsServer = https.createServer(credentials, app);
+var httpsServer = https.createServer(credentials, app);
   //#endregion
  
-  httpServer.listen(80, () => {
-      console.log('HTTP Server running on port 80');
-  });
+  // httpServer.listen(80, () => {
+  //     console.log('HTTP Server running on port 80');
+  // });
   
-  httpsServer.listen(443, () => {
-      console.log('HTTPS Server running on port 443');
-  });
+  // httpsServer.listen(443, () => {
+  //     console.log('HTTPS Server running on port 443');
+  // });
+const port = process.env.PORTHTTPS || 443
+  
+httpsServer.listen(port, (err) => {
+  if(err){
+    console.log(new Date().toISOString()+` https server could not start on port: ${port}`);
+  }else{
+    console.log(new Date().toISOString()+` https server running on port: ${port}`);
+  }
+});
   
