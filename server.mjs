@@ -40,22 +40,21 @@ const credentials = {
 
 const portHTTPS = process.env.PORTHTTPS || 443
 
-// const httpsServer = https.createServer(credentials, app);
+const httpsServer = https.createServer(credentials, app);
 
 
-const port = process.env.PORT || 3000
-
-app.listen(port, ()=>{
-  console.log(`browse this url: localhost:${port}`);  
-});
-
-// httpsServer.listen(portHTTPS, (err) => {
-// if(err){
-//   console.log(new Date().toISOString()+` https server could not start on port: ${portHTTPS}`);
-// }else{
-//   console.log(new Date().toISOString()+` https server running on port: ${portHTTPS}`);
-// }
+// const port = process.env.PORT || 3000
+// app.listen(port, ()=>{
+//   console.log(`browse this url: localhost:${port}`);  
 // });
+
+httpsServer.listen(portHTTPS, (err) => {
+if(err){
+  console.log(new Date().toISOString()+` https server could not start on port: ${portHTTPS}`);
+}else{
+  console.log(new Date().toISOString()+` https server running on port: ${portHTTPS}`);
+}
+});
 
   
 
