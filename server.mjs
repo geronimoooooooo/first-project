@@ -9,6 +9,10 @@ app.get('/' , (req , res)=>{
    res.send('hello from simple server :)')
 })
 
+app.get('/a' , (req , res)=>{
+  res.send('aaaaaa   simple server :)')
+})
+
 //#region https
 // const httpsServer = https.createServer({
 //     key: fs.readFileSync('privateKey.key'),
