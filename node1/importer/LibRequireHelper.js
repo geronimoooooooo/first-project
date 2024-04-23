@@ -43,4 +43,4 @@ function routeGetOfferList(req, res) {
 }
 
   //console.log(add(4,15));
-  module.exports = {sayHi, sayBye, add, PI}; // a list of exported variables
+  module.exports = {sayHi, sayBye, add, PI, offers, routeGetOfferList}; // a list of exported variables

@@ -1,6 +1,4 @@
-//console.log("hello world")
-
-const http = require('node:http');
+const http = require('http');
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -16,8 +14,3 @@ server.listen(port, hostname, () => {
   console.log(`Use browser to call http://localhost:3000/`);
 }); 
 
-var request = require("request");
-	request("http://www.google.com",function(error,response,body)
-	{
-		console.log(body);
-	});
