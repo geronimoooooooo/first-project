@@ -5,11 +5,8 @@ import fs from "fs"
 
 const app = express()
 
-
 app.get('/' , (req , res)=>{
-
    res.send('hello from simple server :)')
-
 })
 
 //#region https
@@ -42,17 +39,19 @@ const portHTTPS = process.env.PORTHTTPS || 443
 const httpsServer = https.createServer(credentials, app);
 const httpServer = https.createServer(app);
 
-httpServer.listen(80, () => {
-    console.log('HTTP Server running on port 80');
+const port = process.env.PORT || 3000
+
+app.listen(port, ()=>{
+  console.log(`browse this url: localhost:${port}`);  
 });
 
-httpsServer.listen(portHTTPS, (err) => {
-if(err){
-  console.log(new Date().toISOString()+` https server could not start on port: ${portHTTPS}`);
-}else{
-  console.log(new Date().toISOString()+` https server running on port: ${portHTTPS}`);
-}
-});
+// httpsServer.listen(portHTTPS, (err) => {
+// if(err){
+//   console.log(new Date().toISOString()+` https server could not start on port: ${portHTTPS}`);
+// }else{
+//   console.log(new Date().toISOString()+` https server running on port: ${portHTTPS}`);
+// }
+// });
 
   
 
