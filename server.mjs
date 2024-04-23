@@ -40,8 +40,8 @@ const credentials = {
 
 const portHTTPS = process.env.PORTHTTPS || 443
 
-const httpsServer = https.createServer(credentials, app);
-const httpServer = https.createServer(app);
+// const httpsServer = https.createServer(credentials, app);
+
 
 const port = process.env.PORT || 3000
 
