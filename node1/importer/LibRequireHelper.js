@@ -13,9 +13,9 @@ function add(x, y) {
 }
 const PI = 3.14159;
 
-export var offers =[{"id":0,"name":"Item 0","price":"$0"},{"id":1,"name":"Item 1","price":"$1"},{"id":2,"name":"Item2","price":"$222"}]
+const offers =[{"id":0,"name":"Item 0","price":"$0"},{"id":1,"name":"Item 1","price":"$1"},{"id":2,"name":"Item2","price":"$222"}]
 
-export function adder(req, res) {
+function adder(req, res) {
   const offer = {"id":110,"name":"Item 110","price":"$110"};
   console.log(offer);
   offers.push(offer);
@@ -23,7 +23,7 @@ export function adder(req, res) {
 }
 
 //exports = { sayHi, add, PI };
-export function routeGetOfferList(req, res) {
+function routeGetOfferList(req, res) {
   offers = [
     {
       serverOffer: "Venoxis",
@@ -37,12 +37,10 @@ export function routeGetOfferList(req, res) {
       offerGold: 50002,
       wantGold: 50002,
     }
-  ];
-
-  
+  ];  
   res.json(offers);
   // res.send(offers);
 }
 
   //console.log(add(4,15));
-  //export {sayHi, sayBye}; // a list of exported variables
+  module.exports = {sayHi, sayBye, add, PI}; // a list of exported variables

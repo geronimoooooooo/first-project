@@ -10,8 +10,8 @@
 //import * as myf from './say.js'
 
 //myf.sayHi("Test");
-sayLib.sayHi('John'); // Hello, John!
-console.log(sayLib.add(4,15));
+// sayLib.sayHi('John'); // Hello, John!
+// console.log(sayLib.add(4,15));
 
 
 
@@ -21,10 +21,14 @@ console.log( now.toISOString().slice(0,-6)+"Z");
 let aa = "value";
 const aMap = new Map();
 aMap.set("a","1");
-aMap.set("b", 2);
+aMap.set("b", 222);
 aMap.forEach((e)=>{
     console.log(e);
 })
+
+for(let [k,v] of aMap){
+	console.log(`key: ${k} and val: ${v}`);
+}
 
 const ar = [0,1,2,3,4,5,6];
 // ar.shift()
@@ -38,7 +42,6 @@ console.log(ar5);
 
 const arr = Array(4).fill(44);
 arr.forEach((item)=>console.log(item));
-
 
 
 ar2.forEach((item) => {
@@ -55,35 +58,13 @@ const txt = JSON.stringify(fullStack);
 console.log(txt);
 console.log(fullStack);
 
-for (const [ar,ar2] of fullStack) {
-	console.log(ar, ar2);
+for (const [k,v] of fullStack) {
+	console.log(k, v);
 }
 
-for (let index = 0; index < 5; index++) {
-	console.log(index);
-	if (index ==2) {
-		console.log("index ist 2");
-	} else {
-		console.log("index not 2");
-	}
-}
-for (let index = 0, length = 5; index < length; index += 1) {
-	const element = 5[index];
-	
-}
-
-
-function func(params) {
-	console.log("Tester");
-}
-
-const func2 = ()=>{
-	console.log("Tester2");
-}
-
-func();
-func2();
-
+const arr3 = [1000, 145, 88, 100];
+console.log(arr3.sort());
+console.log(arr3.sort((a,b)=> a-b));
 
 
 //  const resourceMap = new Set(ar);

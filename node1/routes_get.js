@@ -20,13 +20,10 @@ export function hello(req, res){
     res.send(`hello XY`);
 }
 
-
-export function index3(req,res){
+export function index3(req, res){
     console.log("this is function index3");
     let file = path.join(__dirname + '/index3.html');
     res.sendFile(file);
 }
-
-
 
 // exports = {hello};
