@@ -4,6 +4,14 @@ import fs from "fs"
 
 
 const app = express()
+
+
+app.get('/' , (req , res)=>{
+
+   res.send('hello from simple server :)')
+
+})
+
 //#region https
 // const httpsServer = https.createServer({
 //     key: fs.readFileSync('privateKey.key'),
@@ -20,26 +28,33 @@ const app = express()
     cert: fs.readFileSync('sslcert/certificate.crt')
   };
 */
+
+/**************** https:  use this on vm04
+
+****************************/
 //#endregion
-
 const credentials = {
-    pfx: fs.readFileSync('sslcert/STAR_researchstudio_at.pfx')
-  };
-  
-var httpsServer = https.createServer(credentials, app);
- 
-  // httpServer.listen(80, () => {
-  //     console.log('HTTP Server running on port 80');
-  // });
+  pfx: fs.readFileSync('sslcert/STAR_researchstudio_at.pfx')
+};
+
+const portHTTPS = process.env.PORTHTTPS || 443
+
+const httpsServer = https.createServer(credentials, app);
+const httpServer = https.createServer(app);
+
+httpServer.listen(80, () => {
+    console.log('HTTP Server running on port 80');
+});
+
+httpsServer.listen(portHTTPS, (err) => {
+if(err){
+  console.log(new Date().toISOString()+` https server could not start on port: ${portHTTPS}`);
+}else{
+  console.log(new Date().toISOString()+` https server running on port: ${portHTTPS}`);
+}
+});
+
   
 
-const port = process.env.PORTHTTPS || 443
-  
-httpsServer.listen(port, (err) => {
-  if(err){
-    console.log(new Date().toISOString()+` https server could not start on port: ${port}`);
-  }else{
-    console.log(new Date().toISOString()+` https server running on port: ${port}`);
-  }
-});
+
   
