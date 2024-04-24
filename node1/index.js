@@ -18,12 +18,13 @@ import express from "express";
 import { hello, index3} from "./routes_get.js";
 // const routes_get = require('./routes_get.js');
 
-import { router2, bro, homeMiddleware } from './routes/routes_get.js';
+import { router2, homeMiddleware } from './routes/routes_get.js';
 
 import { getDataFromForm2, routerVar } from "./routes_post.js";
 // const routes_post = require('./routes_post.js');
 
-import { offers, routeGetOfferList, adder } from "./importer/LibRequireHelper.js";
+import { offers, routeGetOfferList } from "./importer/LibRequireHelper.js";
+import  * as libreq2 from "./importer/LibRequireHelper2.js";
 //#endregion
 
 const app = express()
@@ -121,7 +122,6 @@ app.use('/a1', function (req, res, next) {
 })
 
 
-app.get('/bro', bro);
 
 app.get('/hello', hello);
 app.get('/', (req, res) => {  

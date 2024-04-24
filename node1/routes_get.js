@@ -3,7 +3,8 @@ import path from "path";
 // const path  = ('path');
 import { fileURLToPath } from "url";
 // const fileURLToPath = require('url');
-import { offers } from "./importer/LibRequireHelper.js";
+import  {add, offers}  from "./importer/LibRequireHelper.js";
+// import { offers } from "./importer/LibImportHelper.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -52,5 +53,5 @@ export function routeDel(req, res) {
     res.send(users);
     //res.json({user:'tobi', 1:1})
   }
-  
+  console.log("hey");
 // exports = {hello};
