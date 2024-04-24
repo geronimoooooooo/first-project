@@ -6,15 +6,19 @@ import * as dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import {npvGet, test, npvGetAxios, getTime, homeMiddleware} from "./routes/routes_get.mjs"
+import {index3, router2, npvGet, test, npvGetAxios, getTime} from "./routes/routes_get.mjs"
+import * as routes_get from "./routes/routes_get.mjs"
 import { offers, routeGetOfferList, adder } from "./node1/importer/LibRequireHelper.js";
 import routerBirds from './routes/router_birds.js'
+import { getDataFromForm2 } from "./routes/routes_post.js";
 import { log } from "console";
 // const module_helper = import("./helper1.js"); //ruft alles hier drinnen auf
+import routerParam from "./routes/router_param.js";
 //#endregion
 
 //#region definitions
 const app = express();
+const router = express.Router();
 const __filename = fileURLToPath(import.meta.url); //C:\web\first-project\server.mjs 
 const __dirname = path.dirname(__filename); //C:\web\first-project
 app.use(express.json()); // for json
@@ -34,9 +38,9 @@ app.get('/test' , (req , res)=>{
 });
 //#endregion
 
-
 //#region middleware
 app.use('/birds', routerBirds);
+app.use("/", routerParam);
 
 app.use('/a1', function (req, res, next) {
   console.log("/");
@@ -49,7 +53,7 @@ app.use('/home', (req, res, next) => {
   next();
 });
 
-app.use('/home', homeMiddleware);
+app.use('/home', routes_get.homeMiddleware);
 
 app.use('/a1', function (req, res, next) {
   console.log("/a1");
@@ -71,19 +75,13 @@ app.use('/a1', function (req, res, next) {
     at C:\web\node1\node_modules\express\lib\router\index.js:284:15
   */
 })
-
-app.use('/a', router); //calls 2 weitere routes von "router", die "/"" sind
+// app.use('/a', router); //calls 2 weitere routes von "router", die "/"" sind
 app.use('/user', router2); //user/afk/:name/:class 
+
 //#endregion middleware
 
 //#region get
-// For invalid routes
-app.get('*', (req, res) => {
-  console.log("*");
-  // res.status(404).sendFile(path.join(__dirname+'/form.html'));
-  // res.sendFile(path.join(__dirname+'/form.html'));
-  res.send('404! This is an invalid URL.');
-});
+
 
 app.get("/main", function (req, res) {
   var name = "hello";
@@ -153,18 +151,23 @@ app.get("/game", function (req, res) {
   //res.send("das ist ein Test: ${req.body.name } ")
   //res.render('the_template', { name: req.body.name });
 });
+
+
+
+
 //#endregion get
 
 //#region get callback
 // app.get('/add', adder);
 // app.get("/npv", npvGet);
 app.get('/index3', index3);
-app.get('/hello', hello);
+app.get('/hello', routes_get.hello);
 app.get("/npv2", npvGetAxios);
 app.get("/time", getTime);
 app.get("/list", routeGetOfferList);
 // app.get("/bro/:id", bros);
 // app.get("/del/:id", routeDel);
+
 //#endregion
 
 //#region post
@@ -225,8 +228,22 @@ app.route('/login')
 
 //#endregion
 
+// For invalid routes -> must be final entry in all listings
+app.get('*', (req, res) => {
+  console.log("404 invalid URL");
+  // res.status(404).sendFile(path.join(__dirname+'/form.html'));
+  // res.sendFile(path.join(__dirname+'/form.html'));
+  res.send('404! This is an invalid URL.');
+  });
+  
+// For invalid routes -> must be final entry in all listings
+app.use((req, res, next)=>{
+  res.status(404).send({message:"Not Found"});
+});
 
-
+app.use((req, res, next)=>{
+  res.render('./path/to/file');
+});
 //#region WEBSERVER
 //#region https
 // const httpsServer = https.createServer({

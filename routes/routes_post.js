@@ -1,7 +1,7 @@
 
 // const router = require('express').Router()
 import  express, { response } from "express";
-import { offers } from "./importer/LibRequireHelper.js";
+import { offers } from "../node1/importer/LibRequireHelper.js";
 
 export const routerVar = express.Router();
 
