@@ -1,18 +1,23 @@
 import https from "https"
 import express from "express"
 import fs from "fs"
+import { test } from "./routes/routes_get.mjs"
 
 
 const app = express()
 
 app.get('/' , (req , res)=>{
-   res.send('hello from simple server :)')
+  res.send('hello from simple server :)')
 })
 
 app.get('/a' , (req , res)=>{
-  res.send('aaaaaa   simple server :)')
+  res.send('aaaaaa   simple server :)')  
 })
 
+// app.get("/test", test);
+app.route('/test').get(test);
+
+//#region WEBSERVER
 //#region https
 // const httpsServer = https.createServer({
 //     key: fs.readFileSync('privateKey.key'),
@@ -29,19 +34,15 @@ app.get('/a' , (req , res)=>{
     cert: fs.readFileSync('sslcert/certificate.crt')
   };
 */
-
-/**************** https:  use this on vm04
-
-****************************/
 //#endregion
+
+//set NODE_OPTIONS=--openssl-legacy-provider ;read magic wiki
 const credentials = {
   pfx: fs.readFileSync('sslcert/STAR_researchstudio_at.pfx')
 };
 
 const portHTTPS = process.env.PORTHTTPS || 443
-
 const httpsServer = https.createServer(credentials, app);
-
 
 // const port = process.env.PORT || 3000
 // app.listen(port, ()=>{
@@ -49,13 +50,14 @@ const httpsServer = https.createServer(credentials, app);
 // });
 
 httpsServer.listen(portHTTPS, (err) => {
-if(err){
-  console.log(new Date().toISOString()+` https server could not start on port: ${portHTTPS}`);
-}else{
-  console.log(new Date().toISOString()+` https server running on port: ${portHTTPS}`);
-}
+  if(err){
+    console.log("Error: ", err);
+    console.log(new Date().toISOString()+` https server could not start on port: ${portHTTPS}`);
+  }else{
+    console.log(new Date().toISOString()+` https server running on port: ${portHTTPS}`);
+  }
 });
-
+//#endregion
   
 
 

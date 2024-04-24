@@ -5,7 +5,7 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { bros, routeDel} from "./route1.js";
-import {npvGet, npvGetAxios, getTime} from "./routes/routes_get.js"
+import {npvGet, npvGetAxios, getTime} from "./routes/routes_get.mjs"
 import { offers, routeGetOfferList, adder } from "./importer/LibRequireHelper.js";
 import * as dotenv from "dotenv";
 import fs from "fs"

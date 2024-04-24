@@ -2,15 +2,10 @@
 app.get('/', (req, res) => {
   res.send('Hello World!111')
 })
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
 */
 import { offers } from "./importer/LibRequireHelper.js";
 
 export function routeDel(req, res) {
-  // console.log(offers);
   var id = req.params.id;
   console.log(id);
 
@@ -28,6 +23,7 @@ var users = [
 ];
 
 export function bros(req, res) {
+  
   console.log(`used param ${req.params.id}`);
   if (req.query.name != undefined) {
     console.log(req.query.name);
