@@ -1,0 +1,20 @@
+import express from "express";
+const routerBirds = express.Router();
+
+
+const timeLog = (req,res,next) =>{
+    console.log("time: ", Date.now())
+    next()
+}
+
+routerBirds.use(timeLog)
+
+routerBirds.get("/", (req,res)=>{
+    res.send("you like birds!");
+})
+
+routerBirds.get("/where", (req,res)=>{
+    res.send("birds everywhere!");
+})
+
+export default routerBirds;

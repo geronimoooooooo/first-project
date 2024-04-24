@@ -8,15 +8,12 @@ import axios from "axios"
 // var xmlString = xml(xmlObject, options);
 export const router2 = express.Router();
 
-export function bro(req, res){
-    let sco = 'science';
-    console.log("this is bro function");
-    res.send(`This is bro ${sco}`);
-}
+
 export function homeMiddleware(req, res, next){
     console.log("logger homeMiddleware 2");
     next();
 }
+
 export function getTime(req, res){
     let sco = 'science';
     // let myTime = Date.prototype.toISOString();

@@ -2,9 +2,12 @@ import https from "https"
 import express from "express"
 import fs from "fs"
 import { test } from "./routes/routes_get.mjs"
+import routerBirds from './routes/router_birds.js'
 
 
 const app = express()
+
+app.use('/birds', routerBirds);
 
 app.get('/' , (req , res)=>{
   res.send('hello from simple server :)')
@@ -60,5 +63,3 @@ httpsServer.listen(portHTTPS, (err) => {
 //#endregion
   
 
-
-  
