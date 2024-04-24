@@ -13,7 +13,7 @@ function add(x, y) {
 }
 const PI = 3.14159;
 
-const offers =[{"id":0,"name":"Item 0","price":"$0"},{"id":1,"name":"Item 1","price":"$1"},{"id":2,"name":"Item2","price":"$222"}]
+let offers =[{"id":0,"name":"Item 0","price":"$0"},{"id":1,"name":"Item 1","price":"$1"},{"id":2,"name":"Item2","price":"$222"}]
 
 function adder(req, res) {
   const offer = {"id":110,"name":"Item 110","price":"$110"};
@@ -43,4 +43,4 @@ function routeGetOfferList(req, res) {
 }
 
   //console.log(add(4,15));
-export {sayHi, sayBye, add, PI, offers, routeGetOfferList}; // a list of exported variables
+export {sayHi, sayBye, add, adder, PI, offers, routeGetOfferList}; // a list of exported variables

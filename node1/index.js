@@ -55,80 +55,26 @@ const credentials = {
 var httpsServer = https.createServer(credentials, app);
 //#endregion
 
-app.get('/return/:val', (req, res) => {
-  //https://ispacevm04.researchstudio.at/return/abc54 returniert abc54 im body
-  res.send(req.params.val)});
 
-  app.use('/home', (req, res, next) => {
-    console.log('A new request received at middleware home ' + new Date().toISOString());
-    next();
-  });
-  app.use('/home', homeMiddleware);
-  
-  app.get('/home', (req, res) => {
-    console.log("logger in app.get home");    
-    res.send('Home Page');
-  });
+
+
   
 
-app.get("/main", function (req, res) {
-  // var name = "hello";
-  // name = path.join(__dirname+'/index2.html');
-  console.log("/main");
-  // res.sendFile(path.join(__dirname+'/form.html'));
-  res.sendFile(path.join(__dirname+'/index2.html'));
+  
 
-  // res.render(__dirname + "index.html", { name: name });
-});
 
-app.get("/form", function (req, res) {    
-  res.sendFile(path.join(__dirname+'/form.html'));
-  // res.render(__dirname + "index.html", { name: name });
-});
 
-/* /game?name=oddball*/
-app.get("/game", function (req, res) {
-  //if no name given, req.q.name is undefined and falsy
-  if(req.query.name){ 
-    let name = req.query.name;  
-    console.log(req.query.name + " is " +typeof req.query.name);
-    name = name.toLowerCase();
-  }
-  res.send(`this is a name: ${req.query.name} !`);
-  //res.send("das ist ein Test: ${req.body.name } ")
-  //res.render('the_template', { name: req.body.name });
-});
+
+
 
 // With middleware
-app.use('/a1', function (req, res, next) {
-  console.log("/a1");
-  res.json(offers)
-  // next(); //comment this line out, to avoid error
-  //error comes because index2.html calls this a1 to get data to fill table and finally
-  // get('*') is being called
-  /*
-  Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-    at new NodeError (node:internal/errors:399:5)
-    at ServerResponse.setHeader (node:_http_outgoing:645:11)
-    at ServerResponse.header (C:\web\node1\node_modules\express\lib\response.js:794:10)
-    at ServerResponse.send (C:\web\node1\node_modules\express\lib\response.js:174:12)
-    at file:///C:/web/node1/index.js:193:7
-    at Layer.handle [as handle_request] (C:\web\node1\node_modules\express\lib\router\layer.js:95:5)
-    at next (C:\web\node1\node_modules\express\lib\router\route.js:144:13)
-    at Route.dispatch (C:\web\node1\node_modules\express\lib\router\route.js:114:3)
-    at Layer.handle [as handle_request] (C:\web\node1\node_modules\express\lib\router\layer.js:95:5)
-    at C:\web\node1\node_modules\express\lib\router\index.js:284:15
-  */
-})
 
 
 
-app.get('/hello', hello);
-app.get('/', (req, res) => {  
-  res.send('startseite');
-  //res.json({ success: true })
-})
-app.get('/index3', index3);
+
+
+
+
 
 // about page route (http://localhost:8080/about)
 router.get('/', function(req, res, next) {
@@ -161,55 +107,19 @@ app.get('/hello/:name/:age', function(req, res) {
   res.send('hello ' + req.name + '!' + req.params.name + ' '+req.params.age);
 });
 
-app.route('/login')
-
-  // show the form (GET http://localhost:8080/login)
-  .get(function(req, res) {
-      res.send('this is the login form');
-  })
-
-  // process the form (POST http://localhost:8080/login)
-  .post(function(req, res) {
-      console.log('processing');
-      res.send('processing the login form!');
-  });
 
 // apply the routes to our application
-app.use('/a', router); //calls 2 weitere routes von "router", die "/"" sind
-app.use('/user', router2); //user/afk/:name/:class 
 
-app.post('/form', getDataFromForm2);
-app.post('/', (req, res) => {
-    console.log(req.body)
-    res.json({ success: true })
-})
 
-app.post('/api/users', function(req, res) {
-  const user_id = req.body.id;
-  const token = req.body.token;
-  const geo = req.body.geo;
 
-  res.send({
-    'user_id': user_id,
-    'token': token,
-    'geo': geo
-  });
-});
 
-// For invalid routes
-app.get('*', (req, res) => {
-  console.log("*");
-  // res.status(404).sendFile(path.join(__dirname+'/form.html'));
-  // res.sendFile(path.join(__dirname+'/form.html'));
-  res.send('404! This is an invalid URL.');
-});
 
-httpsServer.listen(process.env.PORTHTTPS, (err) => {
+
+
+httpsServer.listen(443, (err) => {
   if(err){
     console.log(new Date().toISOString()+` https server could not start on port: ${process.env.PORTHTTPS}`);
   }else{
     console.log(new Date().toISOString()+` https server running on port: ${process.env.PORTHTTPS}`);
   }
     });
-
-
