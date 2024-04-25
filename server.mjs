@@ -17,6 +17,7 @@ import routerParam from "./routes/router_param.js";
 //#endregion
 
 //#region definitions
+import users from './public/users.json' assert {type: "json"};
 const app = express();
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url); //C:\web\first-project\server.mjs 
@@ -81,6 +82,22 @@ app.use('/user', router2); //user/afk/:name/:class
 //#endregion middleware
 
 //#region get
+
+
+app.get('/users/:id',(req,res)=>{
+  // https://ihechikara.com/posts/how-to-use-route-parameter-in-expressjs/
+  const userID = req.params.id;
+  console.log(`user: ${userID}`);
+  
+    let user = users.users.find((user => user.id == userID))
+    if(!user){
+      console.log(`No user found with  id: ${userID}`);
+      return res.status(404).send(`No user found with id: ${userID}`)
+    }
+    console.log(`user name: ${user.name}`)
+    // res.send(`user: ${userID} with name: ${user.name}`)    
+    res.json(user);  
+});
 
 
 app.get("/main", function (req, res) {
