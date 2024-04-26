@@ -1,5 +1,7 @@
 import express from "express";
-const routerBirds = express.Router();
+import { Router } from "express";
+
+const routerBirds = Router(); //express.Router()
 
 
 const timeLog = (req,res,next) =>{
