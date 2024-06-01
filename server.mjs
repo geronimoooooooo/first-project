@@ -10,7 +10,7 @@ import {index3, router2, npvGet, test, npvGetAxios, getTime} from "./routes/rout
 import * as routes_get from "./routes/routes_get.mjs"
 import { offers, routeGetOfferList, adder } from "./node1/importer/LibRequireHelper.js";
 import routerBirds from './routes/router_birds.js'
-import { getDataFromForm2 } from "./routes/routes_post.js";
+import { formComments, getDataFromForm2 } from "./routes/routes_post.js";
 import { log } from "console";
 // const module_helper = import("./helper1.js"); //ruft alles hier drinnen auf
 import routerParam from "./routes/router_param.js";
@@ -34,8 +34,8 @@ dotenv.config();
 //#endregion
 
 //#region views
-app.get('/test' , (req , res)=>{
-   res.sendFile(path.join(__dirname, 'views', 'test.html'))
+app.get('/returnhtmlpage' , (req , res)=>{
+   res.sendFile(path.join(__dirname, 'views', 'returnhtmlpage.html'))
 });
 //#endregion
 
@@ -83,7 +83,6 @@ app.use('/user', router2); //user/afk/:name/:class
 
 //#region get
 
-
 app.get('/users/:id',(req,res)=>{
   // https://ihechikara.com/posts/how-to-use-route-parameter-in-expressjs/
   const userID = req.params.id;
@@ -98,7 +97,6 @@ app.get('/users/:id',(req,res)=>{
     // res.send(`user: ${userID} with name: ${user.name}`)    
     res.json(user);  
 });
-
 
 app.get("/main", function (req, res) {
   var name = "hello";
@@ -120,15 +118,6 @@ app.get("/game", function (req, res) {
 app.get('/' , (req , res)=>{
   res.send('hello from simple server :)')
   console.log(`file: ${__filename} and dir. ${__dirname}`)
-})
-
-app.get('/', (req, res) => {  
-  res.send('startseite');
-  //res.json({ success: true })
-})
-
-app.get('/a' , (req , res)=>{
-  res.send('aaaaaa   simple server :)')  
 })
 
 app.get('/return/:val', (req, res) => {
@@ -156,6 +145,10 @@ app.get("/form", function (req, res) {
   // res.render(__dirname + "index.html", { name: name });
 });
 
+app.get("/form-comments", function (req, res) {    
+  res.sendFile(path.join(__dirname, 'phase1', 'form-comments.html'));
+  // res.render(__dirname + "index.html", { name: name });
+});
 /* /game?name=oddball*/
 app.get("/game", function (req, res) {
   //if no name given, req.q.name is undefined and falsy
@@ -168,9 +161,6 @@ app.get("/game", function (req, res) {
   //res.send("das ist ein Test: ${req.body.name } ")
   //res.render('the_template', { name: req.body.name });
 });
-
-
-
 
 //#endregion get
 
@@ -188,6 +178,11 @@ app.get("/list", routeGetOfferList);
 //#endregion
 
 //#region post
+app.post('/', (req, res) => {
+  console.log(req.body)
+  res.json({ success: true })
+})
+
 app.post('/form', (req, res) => {
   const first_name = req.body.first_name
   const last_name = req.body.last_name
@@ -203,11 +198,7 @@ app.post("/submit-form", (req, res) => {
 
 //#region post-callback
 app.post('/form', getDataFromForm2);
-
-app.post('/', (req, res) => {
-  console.log(req.body)
-  res.json({ success: true })
-})
+app.post('/formComments', formComments);
 
 app.post('/api/users', function(req, res) {
 const user_id = req.body.id;
@@ -221,6 +212,7 @@ res.send({
 });
 });
 //#endregion post-callback
+
 //#region route
 app.route("/a1").get((req, res) => {
   res.send("You have chosen aaaaa a");
@@ -280,7 +272,7 @@ app.use((req, res, next)=>{
 */
 //#endregion
 
-//set NODE_OPTIONS=--openssl-legacy-provider ;read magic wiki
+//set NODE_OPTIONS=--openssl-legacy-provider in cmd in VS;read magic wiki
 const credentials = {
   pfx: fs.readFileSync('sslcert/STAR_researchstudio_at.pfx')
 };
@@ -293,12 +285,14 @@ const httpsServer = https.createServer(credentials, app);
 //   console.log(`browse this url: localhost:${port}`);  
 // });
 
+//443 used: check tomcat http://localhost:8080/ 
 httpsServer.listen(portHTTPS, (err) => {
   if(err){
     console.log("Error: ", err);
     console.log(new Date().toISOString()+` https server could not start on port: ${portHTTPS}`);
   }else{
     console.log(new Date().toISOString()+` https server running on port: ${portHTTPS}`);
+    console.log(new Date().toISOString()+` call: https://ispacevm04.researchstudio.at/main`);
   }
 });
 //#endregion

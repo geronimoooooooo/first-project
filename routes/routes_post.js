@@ -8,7 +8,14 @@ export const routerVar = express.Router();
 
 // module.exports  = router
 
-export function getDataFromForm(req, res){
+export function formComments(req, res){
+    const {pets} = req.body;
+    if(pets){
+        console.log(pets);
+    }
+    const userName = req.body.userName;
+    const comment = req.body.textAreaComment;
+    console.log("username: "+userName + " with comment: "+comment);
 
     console.log('this is form: '+ JSON.stringify(req.body));
     res.send('this is form '+ JSON.stringify(req.body));
