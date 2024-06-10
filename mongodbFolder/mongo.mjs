@@ -175,10 +175,6 @@ async function test3Awaits(dbName2=dbName, collectionName2=collectionName){
     
 }
 
-
-
-
-
 async function getLastDocument(collectionName) {
   try {
     const client = new MongoClient(url);
@@ -220,12 +216,13 @@ getLastDocument(collectionName)
     console.error('Error getting last document:', error);
   });
 
+ 
 
 // insertManyIntoMongo()
 // insertIntoMongo()
 
-// getDataFromMongo()
+getDataFromMongo()
 // deleteFromMongo()
-// listDatabases(client);
+//  listDatabases(client);
 // getDataFromMongo("sample_airbnb","listingsAndReviews")
 // test3Awaits()

@@ -28,7 +28,7 @@ app.use(express.static('public')); //url/file.img abrufbar, wenn im public folde
 
 // app.engine('html', require('ejs').renderFile);
 app.set("view engine", "ejs");
-app.set("views", __dirname);
+// app.set("views", __dirname);
 // require('dotenv').config();
 dotenv.config();
 //#endregion
@@ -162,6 +162,19 @@ app.get("/game", function (req, res) {
   //res.render('the_template', { name: req.body.name });
 });
 
+app.get("/ejs-index", (req, res)=>{
+  res.render('index', {
+    name:"122",
+    titlePage:"EJS stuff"  
+  });
+})
+
+app.get("/ejs-about", (req, res)=>{
+  res.render('about', {
+    content:"This is about",
+    titlePage:"About"  
+  });
+})
 //#endregion get
 
 //#region get callback
