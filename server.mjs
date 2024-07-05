@@ -14,6 +14,7 @@ import { formComments, getDataFromForm2 } from "./routes/routes_post.js";
 import { log } from "console";
 // const module_helper = import("./helper1.js"); //ruft alles hier drinnen auf
 import routerParam from "./routes/router_param.js";
+import routerRouter from "./routes/router_dog.js";
 //#endregion
 
 //#region definitions
@@ -42,6 +43,7 @@ app.get('/returnhtmlpage' , (req , res)=>{
 //#region middleware
 app.use('/birds', routerBirds);
 app.use("/", routerParam);
+app.use("/router", routerRouter);
 
 app.use('/a1', function (req, res, next) {
   console.log("/");

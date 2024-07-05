@@ -2,6 +2,7 @@
 
 // const { MongoClient } = require("mongodb");
 import { MongoClient } from "mongodb";
+import { insertUser, insertIntoMongo } from "./inserts.js";
 
 
 const url = "mongodb+srv://TestTest:TestTest@goldtrade.skpkklp.mongodb.net/";
@@ -41,37 +42,9 @@ async function getDataFromMongo(dbName2=dbName, collectionName2=collectionName){
     	await client.close();
     }    
 }
-async function insertIntoMongo() {
- 	try {
- 		await client.connect();
- 		const db = client.db(dbName);
- 		const collection = db.collection(collectionName);
-       
- 		const insert = await collection.insertOne({
-            title:"lasts2",
- 			// title: "Post Title 1",
- 			// body: "Body of post.",
- 			// category: "News",
- 			// likes: 1,
- 			// tags: ["news", "events"],
- 			date: new Date().toUTCString(),
- 		});        
 
-        let insert2Content = {name: "Bro2", address: "Hood2"};
-        // const insert2 = await collection.insertOne(insert2Content);
 
-        results = await collection.find().sort({_id:-1}).limit(2).toArray(); //last 2 recods
-        console.log(results);
 
-        const estimate = await collection.estimatedDocumentCount();
-        console.log(`Estimated number of documents in the collection: ${estimate}`);    
-    } catch (error) {            
-    
-    }finally {
-    // Close the database connection when finished or an error occurs
-    	await client.close();
-    }    
-}
 async function insertManyIntoMongo(params) {
     client.connect(url);    
     var dbo = client.db(dbName);
@@ -213,10 +186,11 @@ getLastDocument(collectionName)
   });
 
 // insertManyIntoMongo()
-// insertIntoMongo()
+insertIntoMongo()
+insertUser(client,"enterprise","employee");
 
 // getDataFromMongo()
-deleteFromMongo()
-//  listDatabases(client);
+// deleteFromMongo()
+ listDatabases(client);
 // getDataFromMongo("sample_airbnb","listingsAndReviews")
 // test3Awaits()
