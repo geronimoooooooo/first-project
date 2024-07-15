@@ -5,6 +5,7 @@ import { User } from "./models/users.js";
 const router = express.Router();
 
 router.post("/articles", async (request, response) => {
+  /*{"title":"First article3", "content":"Content for the first article"}*/
   const article = new ArticleModel(request.body);
 
   try {
