@@ -252,17 +252,14 @@ app.route('/login')
 
 //#endregion
 
-// For invalid routes -> must be final entry in all listings
-app.get('*', (req, res) => {
-  console.log("404 invalid URL");
-  // res.status(404).sendFile(path.join(__dirname+'/form.html'));
-  // res.sendFile(path.join(__dirname+'/form.html'));
-  res.send('404! This is an invalid URL.');
-  });
+
   
 // For invalid routes -> must be final entry in all listings
 app.use((req, res, next)=>{
+  let userID = 2;
+  return res.status(404).send(`No user found with id: ${userID}`)
   res.status(404).send({message:"Not Found"});
+  res.status(404).sendFile(path.join(__dirname, 'views', 'form.html'));
 });
 
 app.use((req, res, next)=>{

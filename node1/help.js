@@ -16,13 +16,10 @@ const app = express()
 import * as dotenv from "dotenv"; 
 dotenv.config();
 
-app.use('/*', (req, res, next)=>{
+app.use((req, res, next)=>{
   // app.use('*' :/?a=1&b=2, /, /home?a=1&b=2, 1
-  console.log(new Date().toISOString() +" app.use('/*' :"+req.url+", "+req.path+ ", "+req.originalUrl+","+req.query.a);
+  console.log(new Date().toISOString() +" app.use((req, res, next)=>: "+req.url+", "+req.path+ ", "+req.originalUrl+","+req.query.a);
   next();
-})
-app.use((error, req, res, next) => {
-  console.log('req.url: '+req.url);
 })
 
 app.get('/', (req, res) => {  
@@ -47,39 +44,16 @@ app.get('/user/:id/:dps/detail' , (req , res)=>{
   res.send('hello from simple server :)' + JSON.stringify(req.query));
 })
 
-const mwTimeLogger = (req, res, next) => {
-  console.log(new Date().toISOString()+ " new request to server");
-  if (false) {
-    // A middleware function can end the request cycle, so the next
-    // handler function is not called.
-    return res.status(403).send("You do not have access");
-  }
-  // A middleware function calls next() to invoke the next handler function
-  // on the route.
-  console.log("next() von mwTimeLogger mw");
-  next();
-};
-const mwTimeLogger2 = (req, res, next) => {
-  console.log(new Date().toISOString()+ " new request to server");
-  if (false) {
-    // A middleware function can end the request cycle, so the next
-    // handler function is not called.
-    return res.status(403).send("You do not have access");
-  }
-  // A middleware function calls next() to invoke the next handler function
-  // on the route.
-  console.log("next() von mwTimeLogger2 mw");
-  next();
-};
 
-app.get("/mwtester", mwTimeLogger2, mwTimeLogger, (req, res) => {
-  console.log("/mwTester");
-  res.send("mwTester");
-  // This function is only called if false in mw
+app.get('/ho*me',(req, res) => {
+  console.log("logger in app.get home: "+req.url+", "+req.path+ ", "+req.originalUrl);
+  res.write("Home \n")
+  res.end('Page');
+  // res.send('Home Page');
 });
 
-app.get('/ho*me', mwTimeLogger,(req, res) => {
-  console.log("logger in app.get home: "+req.url+", "+req.path+ ", "+req.originalUrl);
+app.get('/afk/', (req, res) => {
+  console.log("logger in app.get /afk: "+req.url+", "+req.path+ ", "+req.originalUrl);
   res.write("Home \n")
   res.end('Page');
   // res.send('Home Page');
@@ -110,12 +84,15 @@ app.get('/ho*me', mwTimeLogger,(req, res) => {
 //   res.send('hello world\n');
 // }).listen(8000);
 
-var httpsServer = https.createServer(credentials, app);
+// var httpsServer = https.createServer(credentials, app);
 
-httpsServer.listen(process.env.PORTHTTPS, (err) => {
-  if(err){
-    console.log(new Date().toISOString()+` https server could not start on port: ${process.env.PORTHTTPS}`);
-  }else{
-    console.log(new Date().toISOString()+` https server running on port: ${process.env.PORTHTTPS}`);
-  }
-    });
+// httpsServer.listen(3000, (err) => {
+//   if(err){
+//     console.log(new Date().toISOString()+` https server could not start on port: ${process.env.PORTHTTPS}`);
+//   }else{
+//     console.log(new Date().toISOString()+` https server running on port: ${process.env.PORTHTTPS}`);
+//   }
+//     });
+app.listen(3000, ()=>{    
+  console.log(`browse this url http://localhost:3000`)
+});

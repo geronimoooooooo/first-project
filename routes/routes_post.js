@@ -40,8 +40,8 @@ export function getDataFromForm2(req, res){
     console.log( "req.body.checkbox1: "+req.body.check_dog);
 
     let check_cat = Boolean(req.body.check_cat);
-    if(check_cat)    
-    console.log( "req.body.cat: "+req.body.check_cat);
+    if(check_cat)
+        console.log( "req.body.cat: "+req.body.check_cat);
     
     // object = {
     //     first: req.body.first_name ? true : false,
@@ -122,4 +122,3 @@ export function getDataFromForm2(req, res){
     res.send(`This is ${first_name} with ${last_name} with ${dairy}..`);
    }
 
-   

@@ -5,11 +5,12 @@ p1 = null;
 console.log(typeof p1);
 console.log(p1);
 
+// if(p1===undefined){
 if(p1==undefined){
  console.log("undefined here");
 }
 
-if(p1==null) {
+if(p1===null) {
     console.log("null here");
 }
 const m1 = new Map();
