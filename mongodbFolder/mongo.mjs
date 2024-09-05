@@ -2,13 +2,14 @@
 
 // const { MongoClient } = require("mongodb");
 import { MongoClient } from "mongodb";
+import { insertUser, insertIntoMongo } from "./inserts.js";
 
 
 const url = "mongodb+srv://TestTest:TestTest@goldtrade.skpkklp.mongodb.net/";
 var client = new MongoClient(url );
 const dbName = "gold";
 const collectionName = "start"
-let db, collection, expenses
+let db, collection, expenses;
 
 async function getDataFromMongo(dbName2=dbName, collectionName2=collectionName){
     try {                
@@ -42,37 +43,7 @@ async function getDataFromMongo(dbName2=dbName, collectionName2=collectionName){
     }    
 }
 
-async function insertIntoMongo() {
- 	try {
- 		await client.connect();
- 		const db = client.db(dbName);
- 		const collection = db.collection(collectionName);
-       
- 		const insert = await collection.insertOne({
-            title:"lasts2",
- 			// title: "Post Title 1",
- 			// body: "Body of post.",
- 			// category: "News",
- 			// likes: 1,
- 			// tags: ["news", "events"],
- 			date: Date(),
- 		});        
 
-        let insert2Content = {name: "Bro2", address: "Hood2"};
-        const insert2 = await collection.insertOne(insert2Content);
-
-        results = await collection.find().sort({_id:-1}).limit(2).toArray(); //last 2 recods
-        console.log(results);
-
-        const estimate = await collection.estimatedDocumentCount();
-        console.log(`Estimated number of documents in the collection: ${estimate}`);    
-    } catch (error) {            
-    
-    }finally {
-    // Close the database connection when finished or an error occurs
-    	await client.close();
-    }    
-}
 
 async function insertManyIntoMongo(params) {
     client.connect(url);    
@@ -148,7 +119,6 @@ async function listDatabases(){
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
     // client.close()
 };
-
 async function test3Awaits(dbName2=dbName, collectionName2=collectionName){
     try {                
         await client.connect();
@@ -174,11 +144,6 @@ async function test3Awaits(dbName2=dbName, collectionName2=collectionName){
     }    
     
 }
-
-
-
-
-
 async function getLastDocument(collectionName) {
   try {
     const client = new MongoClient(url);
@@ -220,12 +185,12 @@ getLastDocument(collectionName)
     console.error('Error getting last document:', error);
   });
 
-
 // insertManyIntoMongo()
-// insertIntoMongo()
+insertIntoMongo()
+insertUser(client,"enterprise","employee");
 
 // getDataFromMongo()
 // deleteFromMongo()
-// listDatabases(client);
+ listDatabases(client);
 // getDataFromMongo("sample_airbnb","listingsAndReviews")
 // test3Awaits()

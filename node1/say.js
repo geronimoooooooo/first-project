@@ -10,7 +10,8 @@
   function add(x, y){
     return x+y
   }
-  module.exports = {sayHi, add};
+// module.exports = {sayHi, sayBye,  add};  //for require
+export {sayHi, sayBye, add} //import  * as say from "../node1/say.js";
 
   //console.log(add(4,15));
   //export {sayHi, sayBye}; // a list of exported variables

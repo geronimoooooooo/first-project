@@ -1,22 +1,80 @@
-
-// const https = require('https');
-import https from "https"
 import express from "express";
+import https from "https";
+// const https = require('https');
+
+import path from "path";
+// const path  = ('path');
+import { fileURLToPath } from "url";
+// const fileURLToPath = require('url');
+import  {add, offers}  from "../node1/importer/LibRequireHelper.js";
+// import { offers } from "./importer/LibImportHelper.js";
+
 // import xml from 'xml'
 import axios from "axios"
 // var xml = require('xml');
 // var xmlString = xml(xmlObject, options);
-export const router2 = express.Router();
 
-export function bro(req, res){
-    let sco = 'science';
-    console.log("this is bro function");
-    res.send(`This is bro ${sco}`);
+export const router2 = express.Router();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/**
+ * The hello function logs a message to the console.
+ * @param req - The `req` parameter is an object that represents the HTTP request made by the client. It contains
+ * information such as the request method, headers, URL, and body.
+ * @param res - The `res` parameter is the response object that is used to send a response back to the client. It contains
+ * methods and properties that allow you to control the response, such as setting the status code, headers, and sending the
+ * response body.
+ */
+export function hello(req, res){
+    console.log(`this is hello function`);
+    res.send(`hello XY`);
 }
+
+export function index3(req, res){
+    console.log("this is function index3");
+    let file = path.join(__dirname + '/index3.html');
+    res.sendFile(file);
+}
+
+export function routeDel(req, res) {
+    var id = req.params.id;
+    console.log(id);
+  
+    // offers.splice(id,1); //del at pos id 1 element
+  
+    let pos = offers.findIndex((obj) => obj.id == id);
+    offers.splice(pos, 1); //del at pos id 1 element
+    res.send(offers);
+  }
+  
+  const users = [
+    { id: 1, name: " Coder1" },
+    { id: 2, name: " Coder2" },
+    { id: 3, name: " Coder3" },
+  ];
+  
+  export function bros(req, res) {  
+    console.log(`used param ${req.params.id}`);
+    if (req.query.name != undefined) {
+      console.log(req.query.name);
+    }  
+    res.send(users);
+    //res.json({user:'tobi', 1:1})
+  }
+  console.log("hey");
+// exports = {hello};
+
+
+export function test(req, res){
+    res.send('hello test!');    
+}
+
 export function homeMiddleware(req, res, next){
     console.log("logger homeMiddleware 2");
     next();
 }
+
 export function getTime(req, res){
     let sco = 'science';
     // let myTime = Date.prototype.toISOString();

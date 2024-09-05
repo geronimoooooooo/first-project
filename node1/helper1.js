@@ -16,13 +16,6 @@ if(arr2){
     console.log("arr2 ist not empty: " +arr2);
 }
 
-
-
-
-
-
-
-
 const lisa=[45,11,22,3,4]
 console.log(lisa.length + ": "+lisa);
 console.log(lisa.at(0))

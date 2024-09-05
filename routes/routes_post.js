@@ -1,14 +1,21 @@
 
 // const router = require('express').Router()
 import  express, { response } from "express";
-import { offers } from "./importer/LibRequireHelper.js";
+import { offers } from "../node1/importer/LibRequireHelper.js";
 
 export const routerVar = express.Router();
 
 
 // module.exports  = router
 
-export function getDataFromForm(req, res){
+export function formComments(req, res){
+    const {pets} = req.body;
+    if(pets){
+        console.log(pets);
+    }
+    const userName = req.body.userName;
+    const comment = req.body.textAreaComment;
+    console.log("username: "+userName + " with comment: "+comment);
 
     console.log('this is form: '+ JSON.stringify(req.body));
     res.send('this is form '+ JSON.stringify(req.body));
@@ -33,8 +40,8 @@ export function getDataFromForm2(req, res){
     console.log( "req.body.checkbox1: "+req.body.check_dog);
 
     let check_cat = Boolean(req.body.check_cat);
-    if(check_cat)    
-    console.log( "req.body.cat: "+req.body.check_cat);
+    if(check_cat)
+        console.log( "req.body.cat: "+req.body.check_cat);
     
     // object = {
     //     first: req.body.first_name ? true : false,
@@ -115,4 +122,3 @@ export function getDataFromForm2(req, res){
     res.send(`This is ${first_name} with ${last_name} with ${dairy}..`);
    }
 
-   
