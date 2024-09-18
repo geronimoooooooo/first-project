@@ -17,40 +17,40 @@ router.post("/articles", async (request, response) => {
 });
 
 router.get("/articles", async (request, response) => {
-    try {
-     const articles = await ArticleModel.find({});
-      response.send(articles);
-    } catch (error) {
-      response.status(500).send({ error });
-    }
-  });
+  try {
+    const articles = await ArticleModel.find({});
+    response.send(articles);
+  } catch (error) {
+    response.status(500).send({ error });
+  }
+});
 
-router.post("/user", async(req,res)=>{    
-    try {
-        const user = new User({name: "afk", age: 42, email:"afk@a.a"})
-        await user.save();
+router.post("/user", async (req, res) => {
+  try {
+    const user = new User({ name: "afk", age: 42, email: "afk@a.a" })
+    await user.save();
 
-        const user2 = await User.create({
-          name: "create", 
-          age: 42,
-          email: "bro@bro.bro",
-          hobbies:["a","b"]
-        })
-        user2.name = "Create2";
-        await user2.save();
-        console.log(user2);
-        res.send(user);        
-    } catch (error) {
-        console.log(error);
-        console.log(error.message);
-    }
+    const user2 = await User.create({
+      name: "create",
+      age: 42,
+      email: "bro@bro.bro",
+      hobbies: ["a", "b"]
+    })
+    user2.name = "Create2";
+    await user2.save();
+    console.log(user2);
+    res.send(user);
+  } catch (error) {
+    console.log(error);
+    console.log(error.message);
+  }
 })
 router.get("/user", async (request, response) => {
   try {
-  //  const user = await User.findById("6684085a19aec47e6e71ec39")
-   const users = await User.find({name: "Kayle"})
-   const user = await User.where("age").gt(20).lte(43).where("name").equals("afk").limit(2).select("email");
-   console.log(user);
+    //  const user = await User.findById("6684085a19aec47e6e71ec39")
+    const users = await User.find({ name: "Kayle" })
+    const user = await User.where("age").gt(20).lte(43).where("name").equals("afk").limit(2).select("email");
+    console.log(user);
     response.send(user);
   } catch (error) {
     response.status(500).send({ error });
@@ -58,48 +58,48 @@ router.get("/user", async (request, response) => {
 });
 
 router.get("/users", async (request, response) => {
-    try {
-     const users = await User.find({});
-      response.send(users);
-    } catch (error) {
-      response.status(500).send({ error });
-    }
-  });
+  try {
+    const users = await User.find({});
+    response.send(users);
+  } catch (error) {
+    response.status(500).send({ error });
+  }
+});
 
-  router.delete("/user", async (request, response) => {
-    try {
+router.delete("/user", async (request, response) => {
+  try {
     //  const del = await User.deleteOne({_id: "6684085a19aec47e6e71ec39"})
-     const del = await User.deleteMany({name: ["Kyle","Create2"]})
-     if(del.deletedCount==0){
+    const del = await User.deleteMany({ name: ["Kyle", "Create2"] })
+    if (del.deletedCount == 0) {
       console.log("No user found with that id!");
-     }else{
+    } else {
       console.log(`${deletedCount} docs wurden deleted.`)
     }
-      console.log(`${deletedCount} docs wurden deleted.`)
-     const users = await User.find({name: "Kayle"})
-     console.log(user);
-      response.send(user);
-    } catch (error) {
-      response.status(500).send({ error });
-    }
-  });
+    console.log(`${deletedCount} docs wurden deleted.`)
+    const users = await User.find({ name: "Kayle" })
+    console.log(user);
+    response.send(user);
+  } catch (error) {
+    response.status(500).send({ error });
+  }
+});
 
-  router.delete("/user2", async (request, response) => {
-    try {
-     const del = await User.deleteOne({_id: "6684085a19aec47e6e71ec39"})
-     
-     if(del.deletedCount==0){
+router.delete("/user2", async (request, response) => {
+  try {
+    const del = await User.deleteOne({ _id: "6684085a19aec47e6e71ec39" })
+
+    if (del.deletedCount == 0) {
       console.log("No user found with that id!");
-     }else{
+    } else {
       console.log(`${deletedCount} docs wurden deleted.`)
     }
-      console.log(`${deletedCount} docs wurden deleted.`)
-     const users = await User.find({name: "Kayle"})
-     console.log(user);
-      response.send(user);
-    } catch (error) {
-      response.status(500).send({ error });
-    }
-  });
+    console.log(`${deletedCount} docs wurden deleted.`)
+    const users = await User.find({ name: "Kayle" })
+    console.log(user);
+    response.send(user);
+  } catch (error) {
+    response.status(500).send({ error });
+  }
+});
 
 export default router;

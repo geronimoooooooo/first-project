@@ -159,9 +159,7 @@ app.get("/game", function (req, res) {
     console.log(req.query.name + " is " +typeof req.query.name);
     name = name.toLowerCase();
   }
-  res.send(`this is a name: ${req.query.name} !`);
-  //res.send("das ist ein Test: ${req.body.name } ")
-  //res.render('the_template', { name: req.body.name });
+  res.send(`this is a name: ${req.query.name} !`);  
 });
 
 app.get("/ejs-index", (req, res)=>{
